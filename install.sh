@@ -42,8 +42,18 @@ function begin_install() {
     sudo cp -r Chicago95/Cursors/* /usr/share/icons/
     sudo cp -r Chicago95/Fonts/bitmap/cronyx-crillic /usr/share/fonts/
 
+    mkdir -p ~/.fonts
+    cp -r Chicago95/Fonts/vga_font/* ~/.fonts
+    fc-cache -fv
+
     status "Installing qt5-qtstyleplugins for qt5 theme support"
     sudo dnf install qt5-qtstyleplugins -y
+
+    # Setup xfce terminal
+    status "Configuring xfce terminal"
+    mkdir -p ~/.config/xfce4/terminal
+    wget https://github.com/iiPythonx/Fedora95/blob/main/terminalrc -O ~/.config/xfce4/terminal/terminalrc
+
 
     # Enable Chicago95
     status "Enabling Chicago95"
