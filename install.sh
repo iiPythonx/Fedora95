@@ -50,6 +50,7 @@ function begin_install() {
     xfconf-query -c xsettings -p /Net/ThemeName -s "Chicago95"                          # Theme
     xfconf-query -c xsettings -p /Net/IconThemeName -s "Chicago95"                      # Icon Theme
     xfconf-query -c xsettings -p /Gtk/CursorThemeName -s "Chicago95 Standard Cursors"   # Cursor Theme
+    xfconf-query -c xsettings -p /Gtk/FontName -s "Helvetica 8"                         # System font
     xfconf-query -c xfwm4 -p /general/theme -s "Chicago95"                              # WM Theme
     xfconf-query -c xfwm4 -p /general/title_font -s "Sans Bold 8"                       # WM Title Font (Sans Bold 8pt)
     xfconf-query -c xfce4-notifyd -p /theme -s "Chicago95"                              # Notification Theme
