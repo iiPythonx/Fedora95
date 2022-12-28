@@ -20,7 +20,8 @@ This will confirm that the source you are piping is the exact same as what's in 
 
 As of right now, there isn't a straight forward way of removing **everything** Fedora95 does, although this will remove most of it:
 ```bash
-# Git is included for completion; remove if required
+# Git is included for completeness; remove if required
+sudo dnf groupremove xfce -y
 sudo dnf remove git xfce4-panel-profiles qt5-qtstyleplugins -y 
 
 # Purge xfce4 files if not removed already
