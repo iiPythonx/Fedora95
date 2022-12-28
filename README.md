@@ -4,15 +4,14 @@
 
 Fedora95 is a collection of bash scripts and files which turns an ordinary Fedora (typically [rawhide](https://docs.fedoraproject.org/en-US/releases/rawhide/)) installation into a full desktop environment mimicking [Windows 95](https://en.wikipedia.org/wiki/Windows_95). It can automatically install **and configure** [Chicago95](https://github.com/grassmunk/Chicago95) from scratch on any Fedora install.
 
-### Installation
+### Installation w
 Easy to use oneliner:
 ```bash
-curl https://iipython.cf/g/Fedora95/install.sh | sudo bash
+sudo sh -c "$(curl -L https://iipython.cf/g/Fedora95/install.sh)"
 ```
-The above command might work for most people, although piping to bash is quite a controversial topic. If you wish to review the [source you're running](https://github.com/iiPythonx/Fedora95/blob/main/install.sh):
+The above command might work for most people, although piping to sh is quite a controversial topic. If you wish to review the [source you're running](https://github.com/iiPythonx/Fedora95/blob/main/install.sh):
 ```
-wget https://iipython.cf/g/Fedora95/install.sh
-cat install.sh
+wget https://iipython.cf/g/Fedora95/install.sh && cat install.sh
 ```
 This will confirm that the source you are piping is the exact same as what's in this repository (as `iipython.cf/g/1/2` is a redirect to `raw.githubusercontent.com/iiPythonx/1/main/2`).
 

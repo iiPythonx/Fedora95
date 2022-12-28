@@ -54,7 +54,9 @@ function begin_install() {
     xfconf-query -c xfce4-notifyd -p /initial-opacity -s "1"            # Notification Opacity (100%)
     
     # Import Chicago95 panel layout
-    xfce4-panel-profiles load Chicago95/Extras/Chicago95_Panel_Preferences.tar.bz2
+    wget https://github.com/iiPythonx/Fedora95/blob/main/fedora95.tar.bz2
+    xfce4-panel-profiles load fedora95.tar.bz2
+    rm fedora95.tar.bz2
 }
 
 clear
@@ -64,4 +66,3 @@ if [[ $REPLY =~ ^[Yy]$ ]]
 then
     begin_install
 fi
-
