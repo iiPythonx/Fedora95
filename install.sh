@@ -57,6 +57,14 @@ function begin_install() {
     wget https://github.com/iiPythonx/Fedora95/blob/main/fedora95.tar.bz2
     xfce4-panel-profiles load fedora95.tar.bz2
     rm fedora95.tar.bz2
+
+    # Configure plymouth
+    status "Configuring plymouth boot screen"
+    sudo dnf install plymouth -y
+    sudo cp -r Chicago95/Plymouth/Chicago95 /usr/share/plymouth/themes/
+    sudo update-alternatives --install /usr/share/plymouth/themes/default.plymouth default.plymouth /usr/share/plymouth/themes/Chicago95/Chicago95.plymouth 100
+    sudo update-alternatives --set default.plymouth /usr/share/plymouth/themes/Chicago95/Chicago95.plymouth
+    sudo dracut --regenerate-all --force
 }
 
 clear
