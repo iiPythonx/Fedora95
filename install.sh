@@ -49,6 +49,27 @@ function begin_install() {
     status "Installing qt5-qtstyleplugins for qt5 theme support"
     sudo dnf install qt5-qtstyleplugins -y
 
+    # Install sounds
+    status "Installing Chicago95 sounds"
+    sudo dnf install sox libcanberra-gtk3 libcanberra-gtk2 libcanberra-devel -y
+    mkdir -p ~/.local/share/sounds
+    cp -r Chicago95/sounds/Chicago95 ~/.local/share/sounds
+    sudo cp "Chicago95/Extras/Microsoft Windows 95 Startup Sound.ogg" /usr/share/themes/Chicago95/misc/startup.ogg
+    tee -a "~/.config/autostart/95 Startup Sound.deskop" > /dev/null <<EOT
+[Desktop Entry]
+Encoding=UTF-8
+Version=0.9.4
+Type=Application
+Name=95 Startup Sound
+Comment=
+Exec=play /usr/share/themes/Chicago95/misc/startup.ogg
+OnlyShowIn=XFCE;
+RunHook=0
+StartupNotify=false
+Terminal=false
+Hidden=false
+EOT
+
     # Setup xfce terminal
     status "Configuring xfce terminal"
     mkdir -p ~/.config/xfce4/terminal
@@ -63,6 +84,9 @@ function begin_install() {
     xfconf-query -c xsettings -p /Net/IconThemeName -s "Chicago95"                      # Icon Theme
     xfconf-query -c xsettings -p /Gtk/CursorThemeName -s "Chicago95 Standard Cursors"   # Cursor Theme
     xfconf-query -c xsettings -p /Gtk/FontName -s "Helvetica 8"                         # System font
+    xfconf-query -c xsettings -p /Net/EnableEventSounds -s "true"                       # Enable Sounds
+    xfconf-query -c xsettings -p /Net/EnableInputFeedbackSounds -s "true"               # Enable More Sounds
+    xfconf-query -c xsettings -p /Net/SoundThemeName -s "Chicago95"                     # Sound Theme
     xfconf-query -c xfwm4 -p /general/theme -s "Chicago95"                              # WM Theme
     xfconf-query -c xfwm4 -p /general/title_font -s "Sans Bold 8"                       # WM Title Font (Sans Bold 8pt)
     xfconf-query -c xfce4-notifyd -p /theme -s "Chicago95"                              # Notification Theme
