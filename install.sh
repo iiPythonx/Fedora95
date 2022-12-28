@@ -52,8 +52,10 @@ function begin_install() {
     # Setup xfce terminal
     status "Configuring xfce terminal"
     mkdir -p ~/.config/xfce4/terminal
+    mkdir -p ~/.local/share/xfce4/terminal/colorschemes
+    cp Chicago95/Extras/Chicago95.theme ~/.local/share/xfce4/terminal/colorschemes
     wget https://github.com/iiPythonx/Fedora95/blob/main/terminalrc -O ~/.config/xfce4/terminal/terminalrc
-
+    cat Chicago95/Extras/DOSrc >> ~/.bashrc
 
     # Enable Chicago95
     status "Enabling Chicago95"
