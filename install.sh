@@ -65,6 +65,7 @@ function begin_install() {
     sudo update-alternatives --install /usr/share/plymouth/themes/default.plymouth default.plymouth /usr/share/plymouth/themes/Chicago95/Chicago95.plymouth 100
     sudo update-alternatives --set default.plymouth /usr/share/plymouth/themes/Chicago95/Chicago95.plymouth
     sudo dracut --regenerate-all --force
+    sudo systemctl enable lightdm  # Enable lightdm in case it wasn't autoenabled
 }
 
 clear
