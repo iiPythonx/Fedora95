@@ -19,8 +19,7 @@ function status() {
 
 ##  [ INSTALLATION BEGIN ]  ##
 function begin_install() {
-
-    ##  [ INSTALL DEPENDENCIES ]  ##
+    cd  # Ensure everything is happening in ~
 
     # Check for xfce4 and install it if neccessary
     if ! command -v startxfce4 &> /dev/null
@@ -65,7 +64,35 @@ function begin_install() {
     sudo update-alternatives --install /usr/share/plymouth/themes/default.plymouth default.plymouth /usr/share/plymouth/themes/Chicago95/Chicago95.plymouth 100
     sudo update-alternatives --set default.plymouth /usr/share/plymouth/themes/Chicago95/Chicago95.plymouth
     sudo dracut --regenerate-all --force
-    sudo systemctl enable lightdm  # Enable lightdm in case it wasn't autoenabled
+
+    # Fix LightDM
+    status "Setting up LightDM"
+    sudo systemctl enable lightdm
+    sudo rm /etc/systemd/system/default.target
+    sudo systemctl set-default graphical.target
+
+    # Install lightdm-webkit2-greeter
+    status "Building lightdm-webkit2-greeter"
+    sudo dnf install lightdm-gobject-devel gtk3-devel webkitgtk4-devel dbus-glib-devel meson -y
+    git clone https://github.com/Antergos/lightdm-webkit2-greeter.git /tmp/greeter
+    cd /tmp/greeter/build
+    git checkout 2.2.5
+    meson --prefix=/usr --libdir=lib ..
+    ninja
+    sudo ninja install
+    cd ~
+    rm -rf /tmp/greeter
+
+    # Configure LightDM to use lightdm-webkit-greeter
+    status "Configuring lightdm-webkit-greeter"
+    sudo tee -a /etc/lightdm/lightdm.conf > /dev/null <<EOT
+
+[SeatDefaults]
+greeter-session=lightdm-webkit2-greeter
+user-session=xfce
+EOT
+    sudo sed -i "s/= antergos/= Chicago95/g" /etc/lightdm/lightdm-webkit2-greeter.conf
+    sudo cp -r Chicago95/Lightdm/Chicago95 /usr/share/lightdm-webkit/themes/
 }
 
 clear
